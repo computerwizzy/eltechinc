@@ -92,6 +92,7 @@ export interface Translations {
   pillar4Text: string;
   pillar5Title: string;
   pillar5Text: string;
+  benefitsFootnote: string;
   advisoryTag: string;
   advisoryHeading: string;
   advisoryDesc: string;
@@ -334,8 +335,9 @@ export const translations: Record<Language, Translations> = {
     pillar3Text: "Fuel economy and performance results are immediately verifiable in real time through high-precision telemetry and GPS equipment installed on your own pilot test units.",
     pillar4Title: "4. 100% Self-Funding",
     pillar4Text: "The investment is accessible and amortizes itself completely through the immediate monthly diesel fuel savings generated across your fleet.",
-    pillar5Title: "5. Testing Is Completely Free",
-    pillar5Text: "We develop free pilot test units so you can verify fuel savings on your own real routes before making any investment (*restrictions apply).",
+    pillar5Title: "5. *Testing Is Completely Free",
+    pillar5Text: "We develop free pilot test units so you can verify fuel savings on your own real routes before making any investment.",
+    benefitsFootnote: "*Restrictions apply.",
     advisoryTag: "Specialized Engineering Advisory",
     advisoryHeading: "Custom Tooling & Continuous Support",
     advisoryDesc: "In addition to ECU engine reprogramming, we supply specialized tooling and engineering guidance to maintain vehicles correctly and sustain maximum savings long-term.",
@@ -576,8 +578,9 @@ export const translations: Record<Language, Translations> = {
     pillar3Text: "Los resultados obtenidos de rendimiento y desempeño son comprobables de inmediato, porque son medidos en tiempo real mediante equipos de GPS y telemetría de alta precisión instalados en sus propias unidades de prueba.",
     pillar4Title: "4. Autofinanciable",
     pillar4Text: "El costo de inversión es accesible y se amortiza al 100% con los beneficios y ahorros inmediatos que se generan mes a mes.",
-    pillar5Title: "5. Comprobarlo es Gratuito",
-    pillar5Text: "Desarrollamos demos (unidades piloto) sin costo para que compruebe los resultados en su propia ruta antes de invertir (*Aplican restricciones).",
+    pillar5Title: "5. *Comprobarlo es Gratuito",
+    pillar5Text: "Desarrollamos demos (unidades piloto) sin costo para que compruebe los resultados en su propia ruta antes de invertir.",
+    benefitsFootnote: "*Aplican restricciones.",
     advisoryTag: "Asesoría Especializada Integral",
     advisoryHeading: "Herramental y Acompañamiento Continuo",
     advisoryDesc: "Adicionalmente a la reprogramación de software de motor, ofrecemos asesoría y herramental para mantener correctamente los vehículos y obtener los mejores resultados a corto, mediano y largo plazo.",

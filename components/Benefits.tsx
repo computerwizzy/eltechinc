@@ -138,6 +138,11 @@ const Benefits: React.FC = () => {
               </div>
             </div>
 
+            {/* Footnote for the asterisk on Pillar 5 (free demo) */}
+            <p className="text-[11px] text-slate-500 italic">
+              {t.benefitsFootnote}
+            </p>
+
           </div>
 
           {/* Right Column: Visual Card with Original Image and Advisory */}
