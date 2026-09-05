@@ -17,11 +17,22 @@ telemetry and automotive consulting.
 Form submissions are POSTed to a Google Apps Script Web App, which appends a row to your sheet.
 
 1. Open your Google Sheet → **Extensions → Apps Script**.
-2. Paste the script from the site's **"Conectar Google Sheet"** modal (Contact section → Copy Script).
+2. Paste the contents of [apps-script/Code.gs](apps-script/Code.gs), replacing whatever is there.
 3. **Deploy → New deployment → Web app**, *Execute as: Me*, *Who has access: Anyone*.
 4. Copy the resulting `https://script.google.com/macros/s/.../exec` URL.
-5. Set it as `VITE_GOOGLE_SCRIPT_URL` in [.env.local](.env.local) (and in the Vercel project's
-   environment variables) so it applies to every visitor, then rebuild.
+5. Set it as `VITE_GOOGLE_SCRIPT_URL` in [.env](.env).
 
-Pasting the URL in the modal only saves it to that one browser's `localStorage` — useful for testing,
-but the env var is what makes the hook work for real visitors.
+`.env` is committed on purpose: Vercel builds straight from GitHub, so the value is
+picked up automatically on every push with no dashboard configuration. Vite inlines
+`VITE_*` into the client bundle at build time, so this URL ships to browsers either
+way and is not a secret.
+
+Run `setupSheet` once from the Apps Script editor to create the styled header row
+before the first real submission arrives.
+
+To point a local dev server at a different deployment, create `.env.local`
+(gitignored) with the same key — it overrides `.env`.
+
+The endpoint is deployed with *Who has access: Anyone*, which is required for visitor
+submissions. It only appends rows and never reads the sheet, so the exposure is spam
+rather than data loss.
