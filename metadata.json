@@ -1,0 +1,8 @@
+{
+  "name": "Eltech Technology - Soluciones Modernas",
+  "description": "Sitio web oficial modernizado de Eltech, Inc. Especialistas en Truck Fuel Boost, reprogramación de ECU, ahorro de combustible de 3% a 18% para flotas, telemetría y consultoría automotriz.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 280" width="800" height="280">
+  <defs>
+    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f2b5c" />
+      <stop offset="50%" stop-color="#0a225c" />
+      <stop offset="100%" stop-color="#001845" />
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="70%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <mask id="stencil">
+      <rect width="800" height="280" fill="white" />
+      <path d="M 10 188 L 65 188 L 60 196 L 5 196 Z" fill="black" />
+    </mask>
+  </defs>
+
+  <!-- Top Electronic Circuit Banner -->
+  <g id="circuit-top">
+    <image href="/images/eltech-circuit-header.jpg" x="0" y="0" width="800" height="120" preserveAspectRatio="xMidYMid slice" />
+    <!-- Fine glowing border between circuit and brand mark -->
+    <rect x="0" y="118" width="800" height="3" fill="#38bdf8" opacity="0.8" />
+  </g>
+
+  <!-- Bottom White Panel -->
+  <rect x="0" y="120" width="800" height="160" fill="#ffffff" />
+
+  <!-- ELTECH INC. & ELECTRONIC TECHNOLOGY -->
+  <g transform="skewX(-14)">
+    <g mask="url(#stencil)">
+      <text x="80" y="215" font-family="'Inter', 'Montserrat', 'Arial Black', sans-serif" font-size="74" font-weight="900" letter-spacing="2" fill="url(#textGrad)">ELTECH INC.</text>
+    </g>
+    <!-- Stencil Cyan Accent on E -->
+    <rect x="70" y="189" width="34" height="4" fill="#0284c7" opacity="0.9" />
+
+    <text x="82" y="255" font-family="'Inter', 'Montserrat', 'Arial', sans-serif" font-size="24" font-weight="800" letter-spacing="6" fill="#475569">ELECTRONIC TECHNOLOGY</text>
+  </g>
+
+  <!-- Concentric Crescent Waves on Right -->
+  <g transform="translate(350, 60) scale(1.65)">
+    <path d="M 200.00 48.56 A 38.00 38.00 0 1 0 200.00 115.44 A 35.72 35.72 0 1 1 200.00 48.56 Z" fill="url(#waveGrad)" />
+    <path d="M 209.25 57.80 A 28.00 28.00 0 1 0 209.25 106.20 A 26.24 26.24 0 1 1 209.25 57.80 Z" fill="url(#waveGrad)" />
+    <path d="M 216.75 66.07 A 19.00 19.00 0 1 0 216.75 97.93 A 17.64 17.64 0 1 1 216.75 66.07 Z" fill="url(#waveGrad)" />
+  </g>
+</svg>

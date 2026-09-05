@@ -1,0 +1,163 @@
+<svg viewBox="0 0 510 76" fill="none" xmlns="http://www.w3.org/2000/svg" width="510" height="76">
+  <defs>
+    <!-- Silicon Core Lighting Gradient -->
+    <radialGradient id="fusedCoreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.85" />
+      <stop offset="60%" stop-color="#0284c7" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Microprocessor Body -->
+    <linearGradient id="fusedChipBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d2342" />
+      <stop offset="50%" stop-color="#08182d" />
+      <stop offset="100%" stop-color="#040b17" />
+    </linearGradient>
+
+    <!-- Circuit Traces Gradient -->
+    <linearGradient id="fusedTraceGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="60%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+
+    <!-- Metallic Lettering Gradient -->
+    <linearGradient id="fusedTextGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="70%" stop-color="#e2e8f0" />
+      <stop offset="100%" stop-color="#94a3b8" />
+    </linearGradient>
+
+    <!-- Waves Signal Gradient -->
+    <linearGradient id="fusedWaveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="45%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+
+    <!-- Stencil Cut Mask for letter E -->
+    <mask id="fusedStencilMask">
+      <rect width="510" height="76" fill="white" />
+      <path d="M 64 24 L 98 24 L 95 28.5 L 61 28.5 Z" fill="black" />
+    </mask>
+
+    <filter id="fusedNeonGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 1. Integrated Circuit Board Traces -->
+  <g stroke="url(#fusedTraceGrad)" stroke-width="1.3" fill="none" opacity="0.85">
+    <!-- Top Bus -->
+    <path d="M 40 16 L 85 16 L 105 8 L 220 8" stroke-linecap="round" />
+    <path d="M 40 24 L 65 24 L 78 17 L 130 17" stroke-linecap="round" />
+    <circle cx="220" cy="8" r="2" fill="#38bdf8" />
+    <circle cx="130" cy="17" r="1.5" fill="#38bdf8" />
+
+    <!-- Bottom Bus -->
+    <path d="M 40 54 L 75 54 L 88 64 L 205 64" stroke-linecap="round" />
+    <path d="M 40 60 L 60 60 L 70 69 L 140 69" stroke-linecap="round" />
+    <circle cx="205" cy="64" r="2" fill="#38bdf8" />
+    <circle cx="140" cy="69" r="1.5" fill="#38bdf8" />
+
+    <!-- Data bridge to E -->
+    <path d="M 52 38 L 74 38" stroke-width="2.2" stroke-linecap="round" />
+    <circle cx="74" cy="38" r="2.2" fill="#38bdf8" />
+
+    <!-- Connection to Waves -->
+    <path d="M 390 38 L 418 38" stroke-width="1.6" stroke-dasharray="3 2" stroke-linecap="round" />
+    <circle cx="418" cy="38" r="2" fill="#38bdf8" />
+  </g>
+
+  <!-- 2. Fused Microprocessor / ECU Silicon Chip -->
+  <g transform="translate(32, 38)">
+    <circle cx="0" cy="0" r="26" fill="url(#fusedCoreGlow)" />
+
+    <!-- Dual-inline Pins -->
+    <g stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round">
+      <line x1="-22" y1="-12" x2="-15" y2="-12" /><circle cx="-22" cy="-12" r="1.2" fill="#38bdf8" />
+      <line x1="-22" y1="-6" x2="-15" y2="-6" /><circle cx="-22" cy="-6" r="1.2" fill="#38bdf8" />
+      <line x1="-22" y1="0" x2="-15" y2="0" /><circle cx="-22" cy="0" r="1.2" fill="#38bdf8" />
+      <line x1="-22" y1="6" x2="-15" y2="6" /><circle cx="-22" cy="6" r="1.2" fill="#38bdf8" />
+      <line x1="-22" y1="12" x2="-15" y2="12" /><circle cx="-22" cy="12" r="1.2" fill="#38bdf8" />
+
+      <line x1="15" y1="-12" x2="22" y2="-12" /><circle cx="22" cy="-12" r="1.2" fill="#38bdf8" />
+      <line x1="15" y1="-6" x2="22" y2="-6" /><circle cx="22" cy="-6" r="1.2" fill="#38bdf8" />
+      <line x1="15" y1="0" x2="22" y2="0" /><circle cx="22" cy="0" r="1.2" fill="#38bdf8" />
+      <line x1="15" y1="6" x2="22" y2="6" /><circle cx="22" cy="6" r="1.2" fill="#38bdf8" />
+      <line x1="15" y1="12" x2="22" y2="12" /><circle cx="22" cy="12" r="1.2" fill="#38bdf8" />
+
+      <line x1="-12" y1="-22" x2="-12" y2="-15" /><circle cx="-12" cy="-22" r="1.2" fill="#38bdf8" />
+      <line x1="-6" y1="-22" x2="-6" y2="-15" /><circle cx="-6" cy="-22" r="1.2" fill="#38bdf8" />
+      <line x1="0" y1="-22" x2="0" y2="-15" /><circle cx="0" cy="-22" r="1.2" fill="#38bdf8" />
+      <line x1="6" y1="-22" x2="6" y2="-15" /><circle cx="6" cy="-22" r="1.2" fill="#38bdf8" />
+      <line x1="12" y1="-22" x2="12" y2="-15" /><circle cx="12" cy="-22" r="1.2" fill="#38bdf8" />
+
+      <line x1="-12" y1="15" x2="-12" y2="22" /><circle cx="-12" cy="22" r="1.2" fill="#38bdf8" />
+      <line x1="-6" y1="15" x2="-6" y2="22" /><circle cx="-6" cy="22" r="1.2" fill="#38bdf8" />
+      <line x1="0" y1="15" x2="0" y2="22" /><circle cx="0" cy="22" r="1.2" fill="#38bdf8" />
+      <line x1="6" y1="15" x2="6" y2="22" /><circle cx="6" cy="22" r="1.2" fill="#38bdf8" />
+      <line x1="12" y1="15" x2="12" y2="22" /><circle cx="12" cy="22" r="1.2" fill="#38bdf8" />
+    </g>
+
+    <rect x="-16" y="-16" width="32" height="32" rx="4" fill="url(#fusedChipBody)" stroke="#0284c7" stroke-width="1.6" />
+    <rect x="-10" y="-10" width="20" height="20" rx="2" fill="#0369a1" stroke="#38bdf8" stroke-width="1" />
+    <rect x="-5" y="-5" width="10" height="10" fill="#38bdf8" />
+    <rect x="-2" y="-2" width="4" height="4" fill="#ffffff" />
+    <circle cx="-12" cy="-12" r="1.2" fill="#f8fafc" />
+  </g>
+
+  <!-- 3. Typography -->
+  <g transform="skewX(-13)">
+    <g mask="url(#fusedStencilMask)">
+      <text
+        x="82"
+        y="42"
+        font-family="'Inter', 'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif"
+        font-size="37"
+        font-weight="900"
+        letter-spacing="0.04em"
+        fill="url(#fusedTextGrad)"
+      >
+        ELTECH INC.
+      </text>
+    </g>
+
+    <rect x="76" y="23.5" width="20" height="2.5" fill="#38bdf8" filter="url(#fusedNeonGlow)" />
+
+    <text
+      x="84"
+      y="63"
+      font-family="'Inter', 'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif"
+      font-size="12"
+      font-weight="800"
+      letter-spacing="0.30em"
+      fill="#38bdf8"
+    >
+      ELECTRONIC TECHNOLOGY
+    </text>
+  </g>
+
+  <!-- 4. Concentric Crescent Waves -->
+  <g>
+    <path
+      d="M 430.00 12.56 A 32.00 32.00 0 1 0 430.00 65.44 A 29.8 29.8 0 1 1 430.00 12.56 Z"
+      fill="url(#fusedWaveGrad)"
+      filter="url(#fusedNeonGlow)"
+    />
+    <path
+      d="M 438.25 20.20 A 24.00 24.00 0 1 0 438.25 57.80 A 22.3 22.3 0 1 1 438.25 20.20 Z"
+      fill="url(#fusedWaveGrad)"
+    />
+    <path
+      d="M 445.75 27.07 A 16.50 16.50 0 1 0 445.75 50.93 A 15.1 15.1 0 1 1 445.75 27.07 Z"
+      fill="url(#fusedWaveGrad)"
+    />
+    <circle cx="458" cy="38" r="1.8" fill="#38bdf8" opacity="0.85" />
+    <circle cx="468" cy="38" r="1.2" fill="#7dd3fc" opacity="0.6" />
+  </g>
+</svg>
