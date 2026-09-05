@@ -509,7 +509,7 @@ Sent via Eltech Technology Portal`
       <GoogleSheetsModal
         isOpen={isSheetsModalOpen}
         onClose={() => setIsSheetsModalOpen(false)}
-        onConfigChange={(newCfg) => setSheetsConfig(newCfg)}
+        onUrlChange={(newUrl) => setScriptUrl(newUrl)}
       />
     </section>
   );
