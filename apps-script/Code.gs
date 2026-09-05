@@ -12,6 +12,47 @@
  * 6. Click Deploy, Authorize access, and copy the Web App URL!
  */
 
+/**
+ * Run this once from the Apps Script editor (select setupSheet > Run) to create
+ * the "Leads" tab and its styled header row immediately, without waiting for the
+ * first form submission. Safe to re-run: it never touches existing rows.
+ */
+function setupSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("Leads") || ss.insertSheet("Leads");
+
+  if (sheet.getLastRow() === 0) {
+    writeHeaders_(sheet);
+  }
+
+  sheet.setColumnWidth(1, 170); // Timestamp
+  sheet.setColumnWidth(2, 160); // Contact Name
+  sheet.setColumnWidth(3, 180); // Company / Fleet
+  sheet.setColumnWidth(4, 210); // Email
+  sheet.setColumnWidth(5, 150); // Phone
+  sheet.setColumnWidth(9, 320); // Message
+
+  SpreadsheetApp.getUi().alert('Eltech: the "Leads" sheet is ready to receive form submissions.');
+}
+
+/** Writes the styled, frozen header row. Shared by setupSheet and doPost. */
+function writeHeaders_(sheet) {
+  sheet.appendRow([
+    "Timestamp",
+    "Contact Name",
+    "Company / Fleet",
+    "Email Address",
+    "Phone / WhatsApp",
+    "Fleet Size (Units)",
+    "Engine Types",
+    "Free Pilot Demo",
+    "Message / Specifications",
+    "Source"
+  ]);
+  sheet.getRange(1, 1, 1, 10).setFontWeight("bold").setBackground("#0f172a").setFontColor("#38bdf8");
+  sheet.setFrozenRows(1);
+}
+
 function doPost(e) {
   var lock = LockService.getScriptLock();
   lock.tryLock(10000);
@@ -22,20 +63,7 @@ function doPost(e) {
     
     // Create professional headers on row 1 if sheet is empty
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow([
-        "Timestamp",
-        "Contact Name",
-        "Company / Fleet",
-        "Email Address",
-        "Phone / WhatsApp",
-        "Fleet Size (Units)",
-        "Engine Types",
-        "Free Pilot Demo",
-        "Message / Specifications",
-        "Source"
-      ]);
-      sheet.getRange(1, 1, 1, 10).setFontWeight("bold").setBackground("#0f172a").setFontColor("#38bdf8");
-      sheet.setFrozenRows(1);
+      writeHeaders_(sheet);
     }
     
     var data = {};
