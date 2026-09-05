@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Mail, MapPin, CheckCircle2, Send, Building, ShieldCheck, FileSpreadsheet, Sliders, Check } from 'lucide-react';
+import { Phone, Mail, MapPin, CheckCircle2, Send, Building, ShieldCheck, Check } from 'lucide-react';
 import { ContactFormData } from '../types';
 import { useLanguage } from '../LanguageContext';
-import { GoogleSheetsModal } from './GoogleSheetsModal';
 import { 
   getStoredScriptUrl, 
   saveLeadRecord, 
@@ -30,7 +29,6 @@ const Contact: React.FC<ContactProps> = ({ initialMessage = '' }) => {
 
   // Google Sheets Hook state
   const [scriptUrl, setScriptUrl] = useState<string>('');
-  const [isSheetsModalOpen, setIsSheetsModalOpen] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [sheetSyncSuccess, setSheetSyncSuccess] = useState<boolean>(false);
 
@@ -264,32 +262,6 @@ Sent via Eltech Technology Portal`
           {/* Right Column: Contact Form */}
           <div className="lg:col-span-7 bg-slate-950/90 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
             
-            {/* Google Sheets Sync Indicator & Quick Settings */}
-            <div className="mb-6 p-3 bg-slate-900/90 border border-slate-800/90 rounded-xl flex flex-wrap items-center justify-between gap-3 text-xs">
-              <div className="flex items-center gap-2">
-                <div className={`w-2.5 h-2.5 rounded-full ${scriptUrl ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
-                <div className="flex items-center gap-1.5 font-medium text-slate-300">
-                  <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
-                  <span>
-                    {scriptUrl 
-                      ? (lang === 'en' ? 'Google Sheets Hook Active (Auto-Syncs 24/7)' : 'Hook de Google Sheets Activo (Sincroniza 24/7)')
-                      : (lang === 'en' ? 'Google Sheets Webhook Available' : 'Webhook de Google Sheets Disponible')}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setIsSheetsModalOpen(true)}
-                  className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-3 py-1 rounded-lg transition border border-slate-700"
-                >
-                  <Sliders className="w-3 h-3 text-cyan-400" />
-                  <span>{scriptUrl ? (lang === 'en' ? 'Hook Settings' : 'Configurar Hook') : (lang === 'en' ? 'Connect Google Sheet' : 'Conectar Google Sheet')}</span>
-                </button>
-              </div>
-            </div>
-
             {isSubmitted ? (
               <div className="text-center py-8 space-y-5">
                 <div className="w-16 h-16 bg-emerald-950/80 border border-emerald-500/50 rounded-full flex items-center justify-center text-emerald-400 mx-auto">
@@ -505,12 +477,6 @@ Sent via Eltech Technology Portal`
 
       </div>
 
-      {/* Google Sheets Modal Manager */}
-      <GoogleSheetsModal
-        isOpen={isSheetsModalOpen}
-        onClose={() => setIsSheetsModalOpen(false)}
-        onUrlChange={(newUrl) => setScriptUrl(newUrl)}
-      />
     </section>
   );
 };
