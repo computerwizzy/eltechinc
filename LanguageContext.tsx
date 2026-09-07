@@ -11,12 +11,22 @@ interface LanguageContextProps {
 const LanguageContext = createContext<LanguageContextProps | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Read initial language from localStorage or default to 'en'
+  // Read initial language from localStorage or auto-detect from browser navigator
   const [lang, setLangState] = useState<Language>(() => {
     try {
       const saved = localStorage.getItem('eltech_lang');
       if (saved === 'es' || saved === 'en') return saved;
-      // Default to English as requested
+
+      // Auto-detect browser/system language
+      if (typeof window !== 'undefined' && window.navigator) {
+        const browserLang = (navigator.languages && navigator.languages.length > 0)
+          ? navigator.languages[0]
+          : navigator.language;
+        if (browserLang && browserLang.toLowerCase().startsWith('es')) {
+          return 'es';
+        }
+      }
+
       return 'en';
     } catch {
       return 'en';
