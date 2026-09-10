@@ -95,15 +95,26 @@ function getSpamSheet_(ss) {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Detects machine-generated strings like "atMiYIRnjtXfNCfCRlMiIJV" or
- * "Qpvwswrky". Two signals, both rare in real names and companies:
- * an implausible number of lower-to-upper case flips inside one word, and an
- * implausibly low vowel ratio. Only words of 8+ letters are judged, so short
- * real tokens ("GHO", "DD15", "ISX15") are never flagged.
+ * Grades a string for machine-generated gibberish, returning:
+ *   2 - strong evidence, enough on its own
+ *   1 - weak evidence, needs a second field to corroborate
+ *   0 - looks human
+ *
+ * Strong signal: 3+ lower-to-upper case flips inside one word, as in
+ * "atMiYIRnjtXfNCfCRlMiIJV". Real names and companies essentially never do
+ * this, so one field is enough to reject.
+ *
+ * Weak signal: an implausibly low vowel ratio, as in "Qpvwswrky". This one
+ * alone would misjudge real consonant-heavy names ("Krzysztof"), so it only
+ * counts when another field is also suspicious.
+ *
+ * Only words of 8+ letters are graded, so short real tokens like "GHO",
+ * "DD15" and "ISX15" are never touched.
  */
-function looksRandom_(value) {
-  if (!value) return false;
+function randomTextScore_(value) {
+  if (!value) return 0;
   var words = String(value).trim().split(/\s+/);
+  var score = 0;
 
   for (var i = 0; i < words.length; i++) {
     var w = words[i].replace(/[^A-Za-z]/g, '');
@@ -116,12 +127,12 @@ function looksRandom_(value) {
                         w.charAt(j) !== w.charAt(j).toLowerCase();
       if (prevIsLower && currIsUpper) flips++;
     }
-    if (flips >= 3) return true;
+    if (flips >= 3) return 2;
 
     var vowels = (w.match(/[aeiouAEIOU]/g) || []).length;
-    if (vowels / w.length < 0.2) return true;
+    if (vowels / w.length < 0.2) score = 1;
   }
-  return false;
+  return score;
 }
 
 /**
@@ -198,13 +209,23 @@ function rejectionReason_(data, leadsSheet) {
     return 'Email address is malformed: ' + String(data.email || '(empty)').substring(0, 60);
   }
 
-  var randomFields = [];
-  if (looksRandom_(data.name)) randomFields.push('name');
-  if (looksRandom_(data.company)) randomFields.push('company');
-  if (looksRandom_(data.engineTypes)) randomFields.push('engine types');
-  if (looksRandom_(data.message)) randomFields.push('message');
-  if (randomFields.length >= 2) {
-    return 'Machine-generated text in ' + randomFields.length + ' fields (' + randomFields.join(', ') + ')';
+  var graded = [
+    { label: 'name',         score: randomTextScore_(data.name) },
+    { label: 'company',      score: randomTextScore_(data.company) },
+    { label: 'engine types', score: randomTextScore_(data.engineTypes) },
+    { label: 'message',      score: randomTextScore_(data.message) }
+  ];
+  var strong = [], weak = [];
+  for (var g = 0; g < graded.length; g++) {
+    if (graded[g].score === 2) strong.push(graded[g].label);
+    else if (graded[g].score === 1) weak.push(graded[g].label);
+  }
+  // One unmistakably random field is enough; borderline ones need a second.
+  if (strong.length >= 1) {
+    return 'Machine-generated text in ' + strong.concat(weak).join(', ');
+  }
+  if (weak.length >= 2) {
+    return 'Machine-generated text in ' + weak.join(', ');
   }
 
   if (isRecentDuplicate_(leadsSheet, data.email)) {
