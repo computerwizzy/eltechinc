@@ -1,4 +1,4 @@
-import { ContactFormData, LeadRecord } from '../types';
+import { AntiSpamSignals, ContactFormData, LeadRecord } from '../types';
 
 const STORAGE_KEYS = {
   WEBHOOK_URL: 'eltech_script_webhook_url',
@@ -71,7 +71,8 @@ export const deleteStoredLead = (leadId: string) => {
 // 3. Direct Post to Google Apps Script Web App
 export const sendLeadToGoogleAppsScript = async (
   formData: ContactFormData,
-  overrideUrl?: string
+  overrideUrl?: string,
+  signals?: AntiSpamSignals
 ): Promise<{ success: boolean; error?: string }> => {
   const targetUrl = overrideUrl || getStoredScriptUrl();
 
@@ -93,6 +94,12 @@ export const sendLeadToGoogleAppsScript = async (
     requestDemo: formData.requestDemo ? 'YES - Demo Requested' : 'NO',
     message: formData.message || '',
     source: window.location.hostname || 'Eltech Website',
+    // Anti-spam signals. doPost quarantines anything that fails these; a payload
+    // with no `fv` at all is a direct POST to the endpoint rather than a real
+    // form submission.
+    hp: signals?.hp ?? '',
+    elapsedMs: signals?.elapsedMs ?? 0,
+    fv: signals?.fv ?? '',
   };
 
   try {

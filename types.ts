@@ -49,6 +49,20 @@ export interface ContactFormData {
   requestDemo: boolean;
 }
 
+/**
+ * Signals collected by the form to let the Apps Script endpoint separate real
+ * submissions from bot spam. None of this is lead data; it is never stored in
+ * the Leads sheet, only used to decide whether a submission is quarantined.
+ */
+export interface AntiSpamSignals {
+  /** Honeypot field. Hidden from real users, so any value means a bot filled it. */
+  hp: string;
+  /** Milliseconds between the form rendering and the user submitting it. */
+  elapsedMs: number;
+  /** Marker proving the payload came from the form rather than a direct POST. */
+  fv: string;
+}
+
 export interface LeadRecord {
   id: string;
   timestamp: string;

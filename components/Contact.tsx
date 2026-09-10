@@ -9,6 +9,9 @@ import {
   sendLeadToGoogleAppsScript 
 } from '../services/googleSheetsService';
 
+/** Bumped when the form's anti-spam contract changes; sent as `fv`. */
+const FORM_VERSION = 'v2-hp';
+
 interface ContactProps {
   initialMessage?: string;
 }
@@ -31,6 +34,12 @@ const Contact: React.FC<ContactProps> = ({ initialMessage = '' }) => {
   const [scriptUrl, setScriptUrl] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [sheetSyncSuccess, setSheetSyncSuccess] = useState<boolean>(false);
+
+  // Anti-spam: a honeypot no real user can see, and the time the form rendered.
+  // Form-filler bots populate every input they find and submit almost instantly,
+  // so a non-empty honeypot or a sub-second submit is a reliable bot signal.
+  const [honeypot, setHoneypot] = useState<string>('');
+  const formRenderedAt = React.useRef<number>(Date.now());
 
   useEffect(() => {
     const url = getStoredScriptUrl();
@@ -74,7 +83,11 @@ const Contact: React.FC<ContactProps> = ({ initialMessage = '' }) => {
 
     if (scriptUrl) {
       try {
-        const sendRes = await sendLeadToGoogleAppsScript(formData, scriptUrl);
+        const sendRes = await sendLeadToGoogleAppsScript(formData, scriptUrl, {
+          hp: honeypot,
+          elapsedMs: Date.now() - formRenderedAt.current,
+          fv: FORM_VERSION,
+        });
         if (sendRes.success) {
           markLeadSynced(newLead.id);
           isSyncedToSheets = true;
@@ -313,6 +326,24 @@ Sent via Eltech Technology Portal`
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/*
+                  Honeypot. Positioned off-screen rather than display:none, since
+                  some bots skip hidden inputs. Real users never see or tab into
+                  it, so any value here means the submission is automated.
+                */}
+                <div aria-hidden="true" className="absolute -left-[9999px] top-auto w-px h-px overflow-hidden">
+                  <label htmlFor="website-url">Website</label>
+                  <input
+                    type="text"
+                    id="website-url"
+                    name="website-url"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
+                </div>
+
                 <div className="border-b border-slate-800 pb-3 mb-2">
                   <h3 className="text-xl font-bold text-white">{t.contactFormHeading}</h3>
                   <p className="text-xs text-slate-400 mt-1">
